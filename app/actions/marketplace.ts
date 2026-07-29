@@ -56,3 +56,30 @@ export async function placeBid(auctionId: string, newBidAmount: number, bidderId
   revalidatePath('/auctions')
   return { success: true, message: 'Bid placed successfully!' }
 }
+
+// app/actions/marketplace.ts
+'use server'
+
+import { createClient } from '@/lib/supabase/client'
+import { sendDiscordAlert } from '@/lib/discord'
+
+export async function createListing(cardId: string, price: number) {
+  const supabase = createClient()
+
+  // 1. Fetch card details to get title and rarity
+  const { data: card } = await supabase
+    .from('cards')
+    .select('title, rarity')
+    .eq('id', cardId)
+    .single()
+
+  // 2. Insert into database
+  const { error } = await supabase
+    .from('listings')
+    .insert({ card_id: cardId, price, status: 'active' })
+
+  if (!error && card) {
+    // 3. Trigger Discord notification asynchronously
+    await sendDiscordAlert(card.title, price, card.rarity)
+  }
+}
