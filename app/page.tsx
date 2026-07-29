@@ -1,15 +1,17 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
+import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
 import { 
   LayoutDashboard, ShoppingBag, Vault, Heart, ArrowLeftRight, 
-  Gavel, Inbox, Activity, Users, Shield, Wallet, Layers, Sparkles
+  Gavel, Inbox, Activity, Users, Shield, Wallet, Layers, ExternalLink
 } from 'lucide-react'
 
-export default function Dashboard() {
+export default function OverviewPage() {
   const supabase = createClient()
   const [user, setUser] = useState<any>(null)
+  const [loading, setLoading] = useState(true)
   const [stats, setStats] = useState({
     portfolioValue: 0,
     cardsOwned: 0,
@@ -23,33 +25,49 @@ export default function Dashboard() {
   })
 
   useEffect(() => {
-    async function getUserData() {
+    async function loadDashboardData() {
       const { data: { user } } = await supabase.auth.getUser()
       setUser(user)
 
       if (user) {
-        const { data } = await supabase
+        // Fetch vault stats
+        const { data: vaultData } = await supabase
           .from('vault_stats')
           .select('*')
           .eq('user_id', user.id)
-          .single()
+          .maybeSingle()
 
-        if (data) {
+        // Fetch owned cards count
+        const { count: cardsCount } = await supabase
+          .from('user_cards')
+          .select('*', { count: 'exact', head: true })
+          .eq('user_id', user.id)
+
+        // Fetch unread messages
+        const { count: unreadCount } = await supabase
+          .from('messages')
+          .select('*', { count: 'exact', head: true })
+          .eq('receiver_id', user.id)
+          .eq('is_read', false)
+
+        if (vaultData) {
           setStats({
-            portfolioValue: data.portfolio_value,
-            cardsOwned: data.cards_owned,
-            reputation: data.reputation_score,
-            unread: data.unread_messages,
-            trades: data.trades_completed,
-            auctionsWon: data.auctions_won,
-            purchases: data.purchases_count,
-            cardsListed: data.cards_listed,
-            totalSpending: data.total_spending
+            portfolioValue: vaultData.portfolio_value || 0,
+            cardsOwned: cardsCount || 0,
+            reputation: vaultData.reputation_score || 0,
+            unread: unreadCount || 0,
+            trades: vaultData.trades_completed || 0,
+            auctionsWon: vaultData.auctions_won || 0,
+            purchases: vaultData.purchases_count || 0,
+            cardsListed: vaultData.cards_listed || 0,
+            totalSpending: vaultData.total_spending || 0
           })
         }
       }
+      setLoading(false)
     }
-    getUserData()
+
+    loadDashboardData()
   }, [])
 
   const handleGoogleLogin = async () => {
@@ -61,10 +79,10 @@ export default function Dashboard() {
 
   return (
     <div className="flex h-screen bg-[#07050d] text-slate-100 font-sans overflow-hidden">
-      {/* Sidebar */}
+      {/* Sidebar Navigation */}
       <aside className="w-64 border-r border-purple-900/20 bg-[#0a0714] flex flex-col justify-between p-4">
         <div>
-          {/* Logo */}
+          {/* Main Logo */}
           <div className="flex items-center gap-3 px-2 py-4">
             <div className="w-10 h-10 rounded-xl bg-purple-600/20 border border-purple-500/30 flex items-center justify-center shadow-[0_0_15px_rgba(147,51,234,0.3)]">
               <span className="text-xl font-bold text-purple-400">2</span>
@@ -75,24 +93,22 @@ export default function Dashboard() {
             </div>
           </div>
 
-          {/* Nav Section */}
+          {/* Navigation Links */}
           <div className="mt-6">
             <p className="text-[10px] text-purple-300/40 font-semibold uppercase px-3 mb-2">Workspace</p>
             <nav className="space-y-1">
-              <NavItem icon={<LayoutDashboard size={18} />} label="Overview" active />
-              <NavItem icon={<ShoppingBag size={18} />} label="Marketplace" />
-              <NavItem icon={<Vault size={18} />} label="My Vault" />
-              <NavItem icon={<Heart size={18} />} label="Wishlist" />
-              <NavItem icon={<ArrowLeftRight size={18} />} label="Trading" />
-              <NavItem icon={<Gavel size={18} />} label="Auctions" />
-              <NavItem icon={<Inbox size={18} />} label="Inbox" badge={stats.unread} />
-              <NavItem icon={<Activity size={18} />} label="Activity" />
-              <NavItem icon={<Users size={18} />} label="Collectors" />
+              <Link href="/"><NavItem icon={<LayoutDashboard size={18} />} label="Overview" active /></Link>
+              <Link href="/marketplace"><NavItem icon={<ShoppingBag size={18} />} label="Marketplace" /></Link>
+              <Link href="/vault"><NavItem icon={<Vault size={18} />} label="My Vault" /></Link>
+              <Link href="/trading"><NavItem icon={<ArrowLeftRight size={18} />} label="Trading" /></Link>
+              <Link href="/auctions"><NavItem icon={<Gavel size={18} />} label="Auctions" /></Link>
+              <Link href="/inbox"><NavItem icon={<Inbox size={18} />} label="Inbox" badge={stats.unread} /></Link>
+              <Link href="/activity"><NavItem icon={<Activity size={18} />} label="Activity" /></Link>
             </nav>
           </div>
         </div>
 
-        {/* Sidebar Footer Controls */}
+        {/* Sidebar Auth / Footer */}
         <div className="space-y-4">
           <div className="p-3 bg-purple-950/20 rounded-xl border border-purple-800/20">
             <p className="text-xs text-purple-400 font-semibold">Authentication</p>
@@ -101,7 +117,7 @@ export default function Dashboard() {
                 onClick={handleGoogleLogin}
                 className="mt-2 w-full py-2 px-3 bg-gradient-to-r from-purple-600 to-indigo-600 hover:opacity-90 transition rounded-lg text-xs font-semibold flex items-center justify-center gap-2 shadow-lg"
               >
-                <span>Google Login</span>
+                <span>Login with Google</span>
               </button>
             ) : (
               <p className="text-xs text-slate-300 mt-1 truncate">{user.email}</p>
@@ -115,22 +131,21 @@ export default function Dashboard() {
         </div>
       </aside>
 
-      {/* Main Content Area */}
+      {/* Main Tab Content */}
       <main className="flex-1 overflow-y-auto bg-gradient-to-br from-[#0c081a] via-[#07050d] to-[#120720]">
-        {/* Top Navbar */}
         <header className="h-16 border-b border-purple-900/20 px-8 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <span className="font-semibold text-sm">EUGENE CARD</span>
             <span className="text-[10px] bg-purple-900/50 border border-purple-500/30 text-purple-300 px-2 py-0.5 rounded-full">Beta Edition</span>
           </div>
           <div className="flex items-center gap-4 text-sm text-slate-400">
-            <button className="hover:text-white transition">🌐 EN</button>
-            <button className="hover:text-white transition">🛒 0</button>
-            <div className="w-8 h-8 rounded-full bg-purple-600/30 border border-purple-500/40 flex items-center justify-center text-xs text-purple-200 font-semibold">YU</div>
+            <span>🌐 EN</span>
+            <div className="w-8 h-8 rounded-full bg-purple-600/30 border border-purple-500/40 flex items-center justify-center text-xs text-purple-200 font-semibold">
+              {user?.email?.slice(0, 2).toUpperCase() || 'YU'}
+            </div>
           </div>
         </header>
 
-        {/* Dashboard Grid Content */}
         <div className="p-8 space-y-6 max-w-7xl mx-auto">
           {/* Banner */}
           <div className="relative rounded-2xl p-8 overflow-hidden bg-gradient-to-r from-purple-950/40 via-indigo-950/20 to-transparent border border-purple-800/30 flex justify-between items-center">
@@ -141,12 +156,16 @@ export default function Dashboard() {
                 A unified command surface for your cards, market activity, conversations and collector progress.
               </p>
               <div className="flex gap-3 mt-4">
-                <button className="px-4 py-2 bg-purple-600 hover:bg-purple-500 text-white font-semibold text-xs rounded-lg transition shadow-md shadow-purple-600/30">Browse Market</button>
-                <button className="px-4 py-2 bg-purple-950/40 border border-purple-700/30 hover:bg-purple-900/30 text-white font-semibold text-xs rounded-lg transition">Open Inbox</button>
+                <Link href="/marketplace">
+                  <button className="px-4 py-2 bg-purple-600 hover:bg-purple-500 text-white font-semibold text-xs rounded-lg transition shadow-md shadow-purple-600/30">Browse Market</button>
+                </Link>
+                <Link href="/inbox">
+                  <button className="px-4 py-2 bg-purple-950/40 border border-purple-700/30 hover:bg-purple-900/30 text-white font-semibold text-xs rounded-lg transition">Open Inbox</button>
+                </Link>
               </div>
             </div>
 
-            {/* Banner Hologram Card Visual */}
+            {/* Hologram Graphic */}
             <div className="relative w-64 h-40 flex items-center justify-center">
               <div className="absolute inset-0 bg-purple-500/20 blur-3xl rounded-full"></div>
               <div className="w-32 h-44 bg-gradient-to-tr from-purple-700 via-indigo-500 to-purple-400 rounded-xl border border-purple-300/40 shadow-[0_0_30px_rgba(168,85,247,0.4)] transform -rotate-6 flex flex-col items-center justify-center">
@@ -155,7 +174,7 @@ export default function Dashboard() {
             </div>
           </div>
 
-          {/* Welcome & Level Bar */}
+          {/* Collector Welcome & Level */}
           <div className="p-6 rounded-2xl bg-[#0e0a1f] border border-purple-900/20 flex items-center justify-between">
             <div>
               <span className="text-[10px] font-bold text-amber-500 uppercase tracking-widest bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20">Collector Dashboard</span>
@@ -185,10 +204,10 @@ export default function Dashboard() {
               <h4 className="font-bold text-sm">Quick actions</h4>
               <p className="text-xs text-slate-400 mb-4">Everything important is one click away.</p>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                <ActionCard title="Explore Marketplace" desc="Browse cards, pricing and availability." icon={<ShoppingBag size={20} />} />
-                <ActionCard title="Open My Vault" desc="See your owned cards and portfolio." icon={<Vault size={20} />} />
-                <ActionCard title="Start a Trade" desc="Send, receive and manage your trades." icon={<ArrowLeftRight size={20} />} />
-                <ActionCard title="View Auctions" desc="Discover live auctions and place bids." icon={<Gavel size={20} />} />
+                <Link href="/marketplace"><ActionCard title="Explore Marketplace" desc="Browse cards, pricing and availability." icon={<ShoppingBag size={20} />} /></Link>
+                <Link href="/vault"><ActionCard title="Open My Vault" desc="See your owned cards and portfolio." icon={<Vault size={20} />} /></Link>
+                <Link href="/trading"><ActionCard title="Start a Trade" desc="Send, receive and manage your trades." icon={<ArrowLeftRight size={20} />} /></Link>
+                <Link href="/auctions"><ActionCard title="View Auctions" desc="Discover live auctions and place bids." icon={<Gavel size={20} />} /></Link>
               </div>
             </div>
 
@@ -199,7 +218,11 @@ export default function Dashboard() {
                   <h4 className="font-bold text-sm">Collector snapshot</h4>
                   <p className="text-[11px] text-slate-400">Your current server-backed progress.</p>
                 </div>
-                <button className="text-[11px] bg-purple-950/60 border border-purple-800/40 hover:bg-purple-900/40 px-2.5 py-1 rounded-lg">View Full Activity</button>
+                <Link href="/activity">
+                  <button className="text-[11px] bg-purple-950/60 border border-purple-800/40 hover:bg-purple-900/40 px-2.5 py-1 rounded-lg transition flex items-center gap-1">
+                    View Activity <ExternalLink size={10} />
+                  </button>
+                </Link>
               </div>
               <div className="space-y-2 text-xs">
                 <SnapshotRow label="Completed trades" value={stats.trades} />
@@ -245,7 +268,7 @@ function MetricCard({ title, value, subtext, icon }: any) {
 
 function ActionCard({ title, desc, icon }: any) {
   return (
-    <div className="p-3 bg-purple-950/20 border border-purple-900/30 hover:border-purple-600/50 rounded-xl transition cursor-pointer group">
+    <div className="p-3 bg-purple-950/20 border border-purple-900/30 hover:border-purple-600/50 rounded-xl transition cursor-pointer group h-full">
       <div className="p-2 w-fit bg-purple-900/30 rounded-lg text-purple-400 group-hover:bg-purple-600 group-hover:text-white transition">{icon}</div>
       <p className="text-xs font-bold mt-2 text-slate-200">{title}</p>
       <p className="text-[10px] text-slate-400 mt-1 leading-snug">{desc}</p>
