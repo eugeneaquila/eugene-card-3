@@ -1,1 +1,1 @@
-Foundation scaffold.
+Milestone 1 scaffold for Eugene Card v4.

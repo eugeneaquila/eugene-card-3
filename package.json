@@ -1,1 +1,9 @@
-{"name":"eugene-card","private":true}
+{
+  "name": "eugene-card-firestore-migration",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.50.0",
+    "dotenv": "^16.4.5"
+  }
+}

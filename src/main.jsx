@@ -1,0 +1,1 @@
+console.log('Milestone 1 scaffold');
