@@ -3,7 +3,31 @@
   "version": "1.0.0",
   "type": "module",
   "dependencies": {
-    "@supabase/supabase-js": "^2.50.0",
-    "dotenv": "^16.4.5"
+    "@supabase/supabase-js": "^2.111.0",
+    "dotenv": "^16.4.5",
+    "firebase-admin": "^14.2.0",
+    "mime-types": "^3.0.2"
+  },
+  "description": "Milestone 1 scaffold for Eugene Card v4.",
+  "main": "config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eugeneaquila/eugene-card-3.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/eugeneaquila/eugene-card-3/issues"
+  },
+  "homepage": "https://github.com/eugeneaquila/eugene-card-3#readme",
+  "allowScripts": {
+    "@supabase/supabase-js@2.111.0": true,
+    "firebase-admin@14.2.0": true,
+    "mime-types@2.1.35": true,
+    "mime-types@3.0.2": true
   }
 }
