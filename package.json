@@ -4,9 +4,11 @@
   "type": "module",
   "dependencies": {
     "@supabase/supabase-js": "^2.111.0",
+    "@tailwindcss/vite": "^4.3.3",
     "dotenv": "^16.4.5",
     "firebase-admin": "^14.2.0",
-    "mime-types": "^3.0.2"
+    "mime-types": "^3.0.2",
+    "tailwindcss": "^4.3.3"
   },
   "description": "Milestone 1 scaffold for Eugene Card v4.",
   "main": "config.js",
@@ -28,6 +30,8 @@
     "@supabase/supabase-js@2.111.0": true,
     "firebase-admin@14.2.0": true,
     "mime-types@2.1.35": true,
-    "mime-types@3.0.2": true
+    "mime-types@3.0.2": true,
+    "@tailwindcss/vite@4.3.3": true,
+    "tailwindcss@4.3.3": true
   }
 }
