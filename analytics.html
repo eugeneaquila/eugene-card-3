@@ -6,7 +6,7 @@
   <title>Eugene Card | Advanced Predictive Analytics</title>
 
   <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='42' fill='none' stroke='%234f46e5' stroke-width='5' stroke-dasharray='210 50' transform='rotate(-45 50 50)'/><polygon points='50,18 80,35 80,68 50,85 20,68 20,35' fill='%236366f1'/><path d='M 32 42 C 38 32, 52 32, 58 40 C 35 64, 45 70, 60 62' fill='none' stroke='%23ffffff' stroke-width='4' stroke-linecap='round'/></svg>">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='42' fill='none' stroke='%23c98f2c' stroke-width='5' stroke-dasharray='210 50' transform='rotate(-45 50 50)'/><polygon points='50,18 80,35 80,68 50,85 20,68 20,35' fill='%231a1712'/><path d='M 32 42 C 38 32, 52 32, 58 40 C 35 64, 45 70, 60 62' fill='none' stroke='%23f1ece0' stroke-width='4' stroke-linecap='round'/></svg>">
 
   <!-- Google Firebase Compatibility SDKs (v10.7.1) -->
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
@@ -24,9 +24,25 @@
       theme: {
         extend: {
           colors: {
-            amber: { 400: '#fbbf24', 500: '#f59e0b', 600: '#d97706' }
+            slate: { 50: '#f9f9f8', 100: '#f1f0ef', 200: '#e1dcd6', 300: '#c9c0b6', 400: '#aa9d8d', 500: '#8d7c68', 600: '#726455', 700: '#584d41', 800: '#3c352c', 900: '#26211d', 950: '#13110e' },
+            amber: { 50: '#fbf9f7', 100: '#f5f1eb', 200: '#f2e1c4', 300: '#e8ca96', 400: '#dbad5c', 500: '#c98f2c', 600: '#a37424', 700: '#7d5a1c', 800: '#563d13', 900: '#34260e', 950: '#1a1307' },
+            emerald: { 50: '#f7faf9', 100: '#ecf3f1', 200: '#ccebe2', 300: '#a3dbca', 400: '#70c7ad', 500: '#45b090', 600: '#388f75', 700: '#2b6e5a', 800: '#1d4b3d', 900: '#142e26', 950: '#0a1713' },
+            rose: { 50: '#faf7f7', 100: '#f4ecec', 200: '#efccc8', 300: '#e2a49d', 400: '#d17166', 500: '#bc4638', 600: '#99382e', 700: '#762b23', 800: '#511e18', 900: '#311411', 950: '#190a09' },
+            indigo: { 50: '#f7f8fa', 100: '#eceef3', 200: '#cad2ec', 300: '#a1aede', 400: '#6c80cb', 500: '#4059b5', 600: '#344893', 700: '#283871', 800: '#1b264d', 900: '#13192f', 950: '#090d18' },
+            violet: { 50: '#f8f7fa', 100: '#efedf3', 200: '#d7cdea', 300: '#b8a6d9', 400: '#9174c3', 500: '#6d49ab', 600: '#593c8b', 700: '#442e6b', 800: '#2f1f49', 900: '#1e152d', 950: '#0f0b17' },
+            purple: { 50: '#f8f7fa', 100: '#efecf3', 200: '#d9ccea', 300: '#bca4da', 400: '#9672c5', 500: '#7447ae', 600: '#5e3a8d', 700: '#482c6d', 800: '#311e4a', 900: '#1f152e', 950: '#100a17' },
+            blue: { 50: '#f7f9fa', 100: '#ecf0f3', 200: '#cbddec', 300: '#a2c3dd', 400: '#6ea2c9', 500: '#4282b3', 600: '#366a91', 700: '#295170', 800: '#1c374c', 900: '#13232f', 950: '#0a1117' },
+            teal: { 50: '#f7fafa', 100: '#edf2f2', 200: '#cee8e6', 300: '#a8d6d2', 400: '#78bfb8', 500: '#4ea69e', 600: '#408780', 700: '#316863', 800: '#214743', 900: '#162c2a', 950: '#0b1615' },
+            cyan: { 50: '#f7f9fa', 100: '#edf2f3', 200: '#cde4ea', 300: '#a6cfd9', 400: '#74b3c3', 500: '#4998ab', 600: '#3c7b8b', 700: '#2e5f6b', 800: '#1f4149', 900: '#15282d', 950: '#0b1417' },
+            red: { 50: '#fbf7f7', 100: '#f4ebec', 200: '#f1c6c9', 300: '#e6999e', 400: '#d76068', 500: '#c4313b', 600: '#9f2830', 700: '#7a1f25', 800: '#541519', 900: '#330f12', 950: '#1a0809' },
+            brass: '#c98f2c',
+            bone: '#f1ece0'
           },
-          fontFamily: { sans: ['Inter', 'sans-serif'] }
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            serif: ['Fraunces', 'serif'],
+            mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace']
+          }
         }
       }
     }
@@ -34,45 +50,82 @@
 
   <!-- FontAwesome Icons & Google Fonts -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
-    body { font-family: 'Inter', sans-serif; background-color: #030712; color: #f3f4f6; }
+    :root {
+      --ink: #0c0a08; --ink-2: #13110e; --panel: #1a1712; --panel-2: #201c16;
+      --hairline: rgba(241,236,224,.09); --hairline-strong: rgba(241,236,224,.16);
+      --brass: #c98f2c; --brass-light: #dbad5c; --verdant: #45b090; --wine: #bc4638;
+      --sapphire: #6c80cb; --bone: #f1ece0; --bone-dim: #a79a8b;
+    }
+    body { font-family: 'Inter', sans-serif; background-color: var(--ink); color: var(--bone); }
+    h1, h2, h3, .font-display { font-family: 'Fraunces', serif; letter-spacing: -.01em; }
+    .ec-plate { font-family: 'JetBrains Mono', ui-monospace, monospace; letter-spacing: .03em; }
     ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-track { background: #030712; }
-    ::-webkit-scrollbar-thumb { background: #1f2937; border-radius: 9999px; }
-  
-/* ===== Analytics 2.2 dashboard refinement ===== */
-.eca-hero {
-  position: relative; overflow: hidden;
-  background:
-    radial-gradient(circle at 82% 20%, rgba(245,158,11,.14), transparent 24rem),
-    radial-gradient(circle at 12% 100%, rgba(99,102,241,.12), transparent 25rem),
-    rgba(15,23,42,.76);
-}
-.eca-hero::after {
-  content:""; position:absolute; inset:0; pointer-events:none;
-  background:linear-gradient(115deg, transparent 25%, rgba(255,255,255,.045) 48%, transparent 70%);
-}
-.eca-kpi { position:relative; overflow:hidden; }
-.eca-kpi::before { content:""; position:absolute; width:90px;height:90px;right:-28px;top:-28px;border-radius:999px;background:rgba(255,255,255,.025); }
-.eca-kpi-value { letter-spacing:-.045em; }
-.eca-mini-card { background:linear-gradient(145deg,rgba(15,23,42,.9),rgba(2,6,23,.72)); border:1px solid rgba(148,163,184,.12); }
-.eca-search {
-  background:rgba(2,6,23,.72)!important; border:1px solid rgba(148,163,184,.14)!important;
-}
-.eca-search:focus { border-color:rgba(99,102,241,.55)!important; box-shadow:0 0 0 3px rgba(99,102,241,.09)!important; }
-.eca-table-wrap { box-shadow:inset 0 1px 0 rgba(255,255,255,.025); }
-.eca-opportunity { transition:transform .18s ease,border-color .18s ease,background .18s ease; }
-.eca-opportunity:hover { transform:translateY(-2px); border-color:rgba(245,158,11,.3); background:rgba(30,41,59,.62); }
-.eca-status-dot { width:7px;height:7px;border-radius:999px;display:inline-block;box-shadow:0 0 12px currentColor; }
-@media(max-width:640px){.eca-hero{padding:1.1rem!important}.eca-kpi-value{font-size:1.25rem!important}}
+    ::-webkit-scrollbar-track { background: var(--ink); }
+    ::-webkit-scrollbar-thumb { background: #35302a; border-radius: 9999px; }
+    ::selection { background: var(--brass); color: #1a1307; }
+    :focus-visible { outline: 2px solid var(--brass-light); outline-offset: 2px; border-radius: 6px; }
+    @media (prefers-reduced-motion: reduce) { *,*::before,*::after { transition-duration:.001ms!important; animation-duration:.001ms!important; } }
 
+    /* ===== Ledger dashboard components ===== */
+    .eca-hero {
+      position: relative; overflow: hidden;
+      background:
+        radial-gradient(circle at 82% 20%, rgba(201,143,44,.13), transparent 24rem),
+        radial-gradient(circle at 12% 100%, rgba(69,176,144,.10), transparent 25rem),
+        linear-gradient(165deg, var(--panel-2), var(--ink-2));
+    }
+    .eca-hero::after {
+      content:""; position:absolute; inset:0; pointer-events:none;
+      background:linear-gradient(115deg, transparent 25%, rgba(241,236,224,.035) 48%, transparent 70%);
+    }
+    .eca-hero { border-top: 1px solid transparent; }
+    .eca-hero::before {
+      content:""; position:absolute; top:0; left:0; right:0; height:2px;
+      background:linear-gradient(90deg, transparent, var(--brass-light), transparent); opacity:.6;
+    }
+    .eca-kpi { position:relative; overflow:hidden; }
+    .eca-kpi::before { content:""; position:absolute; width:90px;height:90px;right:-28px;top:-28px;border-radius:999px;background:rgba(201,143,44,.05); }
+    .eca-kpi-value { letter-spacing:-.03em; font-family:'JetBrains Mono', ui-monospace, monospace; }
+    .eca-mini-card { background:linear-gradient(160deg,var(--panel-2),var(--ink-2)); border:1px solid var(--hairline); }
+    .eca-search { background:rgba(19,17,14,.8)!important; border:1px solid var(--hairline-strong)!important; }
+    .eca-search:focus { border-color:rgba(201,143,44,.55)!important; box-shadow:0 0 0 3px rgba(201,143,44,.09)!important; }
+    .eca-table-wrap { box-shadow:inset 0 1px 0 rgba(241,236,224,.02); }
+    .eca-opportunity { transition:transform .18s ease,border-color .18s ease,background .18s ease; }
+    .eca-opportunity:hover { transform:translateY(-2px); border-color:rgba(201,143,44,.32); background:rgba(32,28,22,.75); }
+    .eca-status-dot { width:7px;height:7px;border-radius:999px;display:inline-block;box-shadow:0 0 12px currentColor; }
+    @media(max-width:640px){.eca-hero{padding:1.1rem!important}.eca-kpi-value{font-size:1.25rem!important}}
 
-/* Eugene Card 3.0 Admin Shell */
-body{background:radial-gradient(circle at 12% 0%,rgba(99,102,241,.12),transparent 30rem),radial-gradient(circle at 90% 5%,rgba(245,158,11,.08),transparent 24rem),#020617!important}
-.ec3a-side{position:fixed;left:0;top:0;bottom:0;width:244px;z-index:60;background:rgba(3,7,18,.94);border-right:1px solid rgba(148,163,184,.11);backdrop-filter:blur(20px);padding:18px 13px;display:flex;flex-direction:column;gap:18px}.ec3a-brand{display:flex;align-items:center;gap:10px;padding:8px 8px 15px;border-bottom:1px solid rgba(148,163,184,.1)}.ec3a-mark{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:#0f172a;border:1px solid rgba(99,102,241,.3)}.ec3a-title{font-size:11px;font-weight:950;letter-spacing:.12em;color:#fff}.ec3a-sub{font-size:8px;color:#64748b;margin-top:2px}.ec3a-label{font-size:8px;letter-spacing:.15em;text-transform:uppercase;color:#475569;font-weight:900;padding:0 9px}.ec3a-links{display:flex;flex-direction:column;gap:4px}.ec3a-link{display:flex;align-items:center;gap:10px;padding:10px 11px;border-radius:11px;color:#94a3b8;font-size:10px;font-weight:850;border:1px solid transparent;text-decoration:none}.ec3a-link i{width:16px;text-align:center}.ec3a-link:hover{background:#0f172a;color:#fff}.ec3a-link.active{background:rgba(99,102,241,.12);border-color:rgba(99,102,241,.2);color:#c7d2fe;box-shadow:inset 3px 0 #6366f1}.ec3a-note{margin-top:auto;padding:11px;border-radius:14px;background:rgba(99,102,241,.04);border:1px solid rgba(99,102,241,.1);font-size:8px;line-height:1.5;color:#64748b}.ec3a-note strong{color:#a5b4fc}.ec3a-page{margin-left:244px;min-height:100vh}.ec3a-page>header{padding-left:32px!important;padding-right:32px!important}.ec3a-page>main{max-width:none!important;padding-left:32px!important;padding-right:32px!important}.ec3a-mobile{display:none}
-@media(max-width:850px){.ec3a-side{display:none}.ec3a-page{margin-left:0}.ec3a-page>header{padding-left:16px!important;padding-right:16px!important}.ec3a-page>main{padding-left:16px!important;padding-right:16px!important}.ec3a-mobile{display:flex;position:fixed;bottom:10px;left:10px;right:10px;z-index:80;gap:4px;padding:6px;border-radius:16px;background:rgba(2,6,23,.92);border:1px solid rgba(148,163,184,.14);backdrop-filter:blur(18px)}.ec3a-mobile a{flex:1;text-align:center;padding:8px 3px;border-radius:11px;color:#64748b;font-size:8px;font-weight:900;text-decoration:none}.ec3a-mobile a.active{background:rgba(99,102,241,.12);color:#a5b4fc}.ec3a-mobile i{display:block;font-size:13px;margin-bottom:3px}}
+    /* ===== Vault control-room shell (shared across all 3 admin pages) ===== */
+    body{background:radial-gradient(circle at 12% 0%,rgba(201,143,44,.09),transparent 30rem),radial-gradient(circle at 90% 5%,rgba(69,176,144,.07),transparent 24rem),var(--ink)!important}
+    .ec3a-side{position:fixed;left:0;top:0;bottom:0;width:244px;z-index:60;background:rgba(12,10,8,.95);border-right:1px solid var(--hairline);backdrop-filter:blur(20px);padding:18px 13px;display:flex;flex-direction:column;gap:18px}
+    .ec3a-brand{display:flex;align-items:center;gap:10px;padding:8px 8px 15px;border-bottom:1px solid var(--hairline)}
+    .ec3a-mark{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:var(--ink-2);border:1px solid rgba(201,143,44,.35)}
+    .ec3a-title{font-family:'Fraunces',serif;font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--bone)}
+    .ec3a-sub{font-size:8px;color:var(--bone-dim);margin-top:2px;letter-spacing:.04em}
+    .ec3a-label{font-size:8px;letter-spacing:.15em;text-transform:uppercase;color:#6b6154;font-weight:900;padding:0 9px}
+    .ec3a-links{display:flex;flex-direction:column;gap:4px}
+    .ec3a-link{display:flex;align-items:center;gap:10px;padding:10px 11px;border-radius:11px;color:var(--bone-dim);font-size:10px;font-weight:750;border:1px solid transparent;text-decoration:none}
+    .ec3a-link i{width:16px;text-align:center}
+    .ec3a-link:hover{background:var(--ink-2);color:var(--bone)}
+    .ec3a-link.active{background:rgba(201,143,44,.12);border-color:rgba(201,143,44,.25);color:var(--brass-light);box-shadow:inset 3px 0 var(--brass)}
+    .ec3a-note{margin-top:auto;padding:11px;border-radius:14px;background:rgba(201,143,44,.045);border:1px solid rgba(201,143,44,.12);font-size:8px;line-height:1.5;color:var(--bone-dim)}
+    .ec3a-note strong{color:var(--brass-light)}
+    .ec3a-page{margin-left:244px;min-height:100vh}
+    .ec3a-page>header{padding-left:32px!important;padding-right:32px!important}
+    .ec3a-page>main{max-width:none!important;padding-left:32px!important;padding-right:32px!important}
+    .ec3a-mobile{display:none}
+    @media(max-width:850px){
+      .ec3a-side{display:none}.ec3a-page{margin-left:0}
+      .ec3a-page>header{padding-left:16px!important;padding-right:16px!important}
+      .ec3a-page>main{padding-left:16px!important;padding-right:16px!important}
+      .ec3a-mobile{display:flex;position:fixed;bottom:10px;left:10px;right:10px;z-index:80;gap:4px;padding:6px;padding-bottom:calc(6px + env(safe-area-inset-bottom));border-radius:16px;background:rgba(12,10,8,.94);border:1px solid var(--hairline-strong);backdrop-filter:blur(18px)}
+      .ec3a-mobile a{flex:1;text-align:center;padding:8px 3px;border-radius:11px;color:var(--bone-dim);font-size:8px;font-weight:900;text-decoration:none}
+      .ec3a-mobile a.active{background:rgba(201,143,44,.14);color:var(--brass-light)}
+      .ec3a-mobile i{display:block;font-size:13px;margin-bottom:3px}
+    }
 </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-amber-500 selection:text-black">
@@ -80,7 +133,7 @@ body{background:radial-gradient(circle at 12% 0%,rgba(99,102,241,.12),transparen
   <!-- Header -->
   
 <aside class="ec3a-side">
-  <a href="index.html" class="ec3a-brand"><div class="ec3a-mark"><i class="fa-solid fa-layer-group text-indigo-400"></i></div><div><div class="ec3a-title">EUGENE CARD</div><div class="ec3a-sub">ADMIN CONTROL</div></div></a>
+  <a href="index.html" class="ec3a-brand"><div class="ec3a-mark"><i class="fa-solid fa-layer-group text-amber-400"></i></div><div><div class="ec3a-title">EUGENE CARD</div><div class="ec3a-sub">ADMIN CONTROL</div></div></a>
   <div class="ec3a-label">Command Center</div>
   <div class="ec3a-links">
     <a href="admin-command-center.html" class="ec3a-link"><i class="fa-solid fa-gauge-high"></i>Overview</a>
@@ -93,18 +146,18 @@ body{background:radial-gradient(circle at 12% 0%,rgba(99,102,241,.12),transparen
   </div>
   <div class="ec3a-note"><strong>3.0 Admin Layer</strong><br>Analytics and financial intelligence stay connected to the marketplace control center.</div>
 </aside>
-<div class="ec3a-mobile"><a href="admin-command-center.html"><i class="fa-solid fa-gauge-high"></i>Home</a><a href="analytics.html" class="ACTIVE_ANALYTICS"><i class="fa-solid fa-chart-line"></i>Analytics</a><a href="revenue.html" class="ACTIVE_REVENUE"><i class="fa-solid fa-sack-dollar"></i>Revenue</a><a href="index.html"><i class="fa-solid fa-store"></i>Market</a></div>
+<div class="ec3a-mobile"><a href="admin-command-center.html"><i class="fa-solid fa-gauge-high"></i>Home</a><a href="analytics.html" class="active"><i class="fa-solid fa-chart-line"></i>Analytics</a><a href="revenue.html"><i class="fa-solid fa-sack-dollar"></i>Revenue</a><a href="index.html"><i class="fa-solid fa-store"></i>Market</a></div>
 
 <div class="ec3a-page">
 <header class="sticky top-0 z-40 bg-slate-950/90 backdrop-blur-md border-b border-slate-800/80 px-4 lg:px-8 py-3">
     <div class="max-w-7xl mx-auto flex items-center justify-between gap-3">
       <div class="flex items-center gap-3 cursor-pointer" onclick="window.location.href='index.html'">
-        <div class="w-10 h-10 rounded-xl overflow-hidden bg-slate-900 border border-indigo-500/30 p-1 flex items-center justify-center shadow-lg">
+        <div class="w-10 h-10 rounded-xl overflow-hidden bg-slate-900 border border-amber-500/30 p-1 flex items-center justify-center shadow-lg">
           <i class="fa-solid fa-chart-line text-amber-400"></i>
         </div>
         <div>
           <div class="flex items-center gap-2">
-            <h1 class="font-extrabold text-base tracking-wider text-white uppercase">EUGENE CARD</h1>
+            <h1 class="font-display font-semibold text-base tracking-wide text-bone uppercase">EUGENE CARD</h1>
             <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/30" data-i18n="badgeAnalytics">Predictive Analytics Hub</span>
           </div>
           <p class="text-xs text-slate-400" data-i18n="analyticsSub">Post-trade floor price estimation & market velocity analytics</p>
@@ -732,23 +785,23 @@ body{background:radial-gradient(circle at 12% 0%,rgba(99,102,241,.12),transparen
           datasets: [{
             label: chartLabel,
             data: [currentVal, val3m, val6m, val9m, futureVal],
-            borderColor: '#818cf8',
-            backgroundColor: 'rgba(129, 140, 248, 0.15)',
+            borderColor: '#6c80cb',
+            backgroundColor: 'rgba(108, 128, 203, 0.15)',
             fill: true,
             tension: 0.35,
             pointRadius: 6,
-            pointBackgroundColor: '#fbbf24'
+            pointBackgroundColor: '#c98f2c'
           }]
         },
         options: {
           responsive: true,
           maintainAspectRatio: false,
           plugins: {
-            legend: { labels: { color: '#94a3b8', font: { family: 'Inter', size: 11 } } }
+            legend: { labels: { color: '#a79a8b', font: { family: 'Inter', size: 11 } } }
           },
           scales: {
-            x: { ticks: { color: '#64748b' }, grid: { color: 'rgba(255,255,255,0.05)' } },
-            y: { ticks: { color: '#64748b', callback: value => 'Rp ' + (value / 1000) + 'k' }, grid: { color: 'rgba(255,255,255,0.05)' } }
+            x: { ticks: { color: '#8d7c68' }, grid: { color: 'rgba(241,236,224,0.05)' } },
+            y: { ticks: { color: '#8d7c68', callback: value => 'Rp ' + (value / 1000) + 'k' }, grid: { color: 'rgba(241,236,224,0.05)' } }
           }
         }
       });
@@ -766,7 +819,7 @@ body{background:radial-gradient(circle at 12% 0%,rgba(99,102,241,.12),transparen
           labels: ['Premium', 'Standard'],
           datasets: [{
             data: [premium || 1, standard || 1],
-            backgroundColor: ['#fbbf24', '#3b82f6'],
+            backgroundColor: ['#c98f2c', '#4282b3'],
             borderWidth: 0
           }]
         },
@@ -774,7 +827,7 @@ body{background:radial-gradient(circle at 12% 0%,rgba(99,102,241,.12),transparen
           responsive: true,
           maintainAspectRatio: false,
           plugins: {
-            legend: { position: 'bottom', labels: { color: '#94a3b8', font: { family: 'Inter', size: 11 } } }
+            legend: { position: 'bottom', labels: { color: '#a79a8b', font: { family: 'Inter', size: 11 } } }
           }
         }
       });
