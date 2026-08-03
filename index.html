@@ -256,7 +256,7 @@
         display: flex;
         position: fixed;
         bottom: 10px; left: 10px; right: 10px;
-        z-index: 80;
+        z-index: 45;
         gap: 2px;
         padding: 6px;
         border-radius: 18px;
@@ -1405,7 +1405,7 @@
       </div>
       <div id="cart-items-container" class="py-4 space-y-3 overflow-y-auto max-h-[50vh]"></div>
     </div>
-    <div class="space-y-4 pt-4 border-t border-slate-800">
+    <div class="space-y-4 pt-4 border-t border-slate-800 mobile-safe-bottom">
       <div class="bg-slate-950 p-3.5 rounded-2xl border border-slate-800 space-y-2 text-xs">
         <div class="flex justify-between text-slate-400"><span data-i18n="subtotal">Subtotal</span><span id="cart-subtotal" class="font-mono text-white">Rp 0</span></div>
         <div class="flex justify-between text-slate-400"><span data-i18n="platformTax">Platform Tax (2%)</span><span id="cart-tax" class="font-mono text-amber-400">Rp 0</span></div>
